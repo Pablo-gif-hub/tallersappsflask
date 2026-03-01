@@ -13,3 +13,13 @@ with app.app_context():
 from routes import *
 if __name__ == '__main__':
     app.run(debug=True)
+
+# eliminar
+def eliminar(self, id_producto):
+        for producto in self.productos:
+            if producto.id_producto == id_producto:
+                self.productos.remove(producto)
+                print("Producto eliminado correctamente.")
+                return
+        print("Producto no encontrado.")
+    
