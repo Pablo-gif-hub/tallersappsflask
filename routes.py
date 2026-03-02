@@ -29,6 +29,14 @@ def sobrenosotros():
     return render_template('sobrenosotros.html', form=formulario, tareas=todas_tareas)
 
 
+#eliminar
+@app.route('/eliminar/<int:id>')
+def eliminar_tarea(id):
+    tarea = Tarea.query.get_or_404(id)
+    db.session.delete(tarea)
+    db.session.commit()
+    return redirect(url_for('sobrenosotros'))
+
 #editar....
 @app.route('/editar/<int:id>', methods=['GET', 'POST'])
 def editar_tarea(id):
