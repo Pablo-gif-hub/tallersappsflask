@@ -3,5 +3,14 @@
 {% block contenido %}
 <h1>Taller de app</h1>
 <h2>{{subtitulo}}</h2>
-
+<h1>Bienvenido al Menú Principal</h1>
+<ul>
+    {% for item in items %}
+        <li>
+            {{ item }} - 
+            <a href="{{ url_for('editar', item_id=loop.index0) }}">Editar</a> |
+            <a href="{{ url_for('eliminar', item_id=loop.index0) }}">Eliminar</a>
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}
