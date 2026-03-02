@@ -1,17 +1,37 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-<h2>Taller Apps - Sobre nosotros</h2>
-<h4>Bienvenido a este sitio de taller .....</h4>
+<div class="container mt-5">
+    <h2 class="mb-3">Taller Apps - Sobre nosotros</h2>
+    <h5 class="text-muted mb-4">Bienvenido a este sitio de taller .....</h5>
 
-<form action="/sobrenosotros" method="post">
-    {{ form.csrf_token() }}
-    {{ form.titulo.label }}
-    {{ form.titulo }}
-    {{ form.enviar }}
-</form>
-{% if titulo %}
-    <h2>{{ titulo }}</h2>
-{% endif %}
+    <!-- formulario   -->
+    <div class="card mb-4 p-3 shadow-sm">
+        <form action="{% if editar_id %}/editar/{{ editar_id }}{% else %}/sobrenosotros{% endif %}" method="post" class="d-flex gap-2">
+            {{ form.csrf_token() }}
+            <div class="flex-grow-1">
+                {{ form.titulo.label(class="form-label") }}
+                {{ form.titulo(class="form-control") }}
+            </div>
+            {{ form.enviar(class="btn btn-primary mt-4") }}
+        </form>
+    </div>
 
+    <!-- lista    -->
+    {% if tareas %}
+    <h4 class="mb-3">Lista de Tareas Guardadas:</h4>
+    <div class="row row-cols-1 row-cols-md-2 g-3">
+        {% for tarea in tareas %}
+        <div class="col">
+            <div class="card p-3 shadow-sm d-flex flex-row justify-content-between align-items-center">
+                <span>{{ tarea.titulo }}</span>
+                <div>
+                    <a href="{{ url_for('editar_tarea', id=tarea.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
